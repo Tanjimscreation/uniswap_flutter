@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'providers/wallet_provider.dart';
-import 'screens/splash_screen.dart';
+
+import 'providers/auth_provider.dart';
 import 'screens/login_screen.dart';
-import 'screens/registration_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/registration_screen.dart';
+import 'screens/splash_screen.dart';
 import 'theme/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const UniSwapApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class UniSwapApp extends StatelessWidget {
+  const UniSwapApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => WalletProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MaterialApp(
-        title: 'Uniswap Flutter',
+        title: 'UniSwap UTM',
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.darkTheme,
-        home: const SplashScreen(),
+        theme: AppTheme.light,
+        initialRoute: '/',
         routes: {
-          '/login': (context) => const LoginScreen(),
-          '/registration': (context) => const RegistrationScreen(),
-          '/profile': (context) => const ProfileScreen(),
+          '/': (_) => const SplashScreen(),
+          '/login': (_) => const LoginScreen(),
+          '/registration': (_) => const RegistrationScreen(),
+          '/profile': (_) => const ProfileScreen(),
         },
       ),
     );
